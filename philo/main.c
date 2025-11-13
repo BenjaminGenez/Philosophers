@@ -4,9 +4,11 @@ static int	create_philosophers(t_data *data)
 {
 	int	i;
 
+	data->start_time = get_time();
 	i = 0;
 	while (i < data->num_philos)
 	{
+		data->philos[i].last_meal_time = data->start_time;
 		if (pthread_create(&data->philos[i].thread, NULL,
 				philosopher_routine, &data->philos[i]) != 0)
 			return (0);
