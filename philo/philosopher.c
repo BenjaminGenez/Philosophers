@@ -2,6 +2,9 @@
 
 static void	take_forks(t_philo *philo)
 {
+	/* [3] Each fork is represented by a pthread_mutex_t. Locking a fork's
+	   mutex means the philosopher has taken that fork. The mutex itself
+	   acts as the fork state (no separate boolean/value is used). */
 	if (philo->id % 2 == 0)
 	{
 		pthread_mutex_lock(philo->right_fork);
@@ -23,6 +26,8 @@ static void	take_forks(t_philo *philo)
 
 static void	drop_forks(t_philo *philo)
 {
+	/* [3] Releasing the forks simply unlocks the corresponding mutexes so
+	   other philosophers can acquire them. */
 	pthread_mutex_unlock(philo->left_fork);
 	pthread_mutex_unlock(philo->right_fork);
 }
