@@ -1,5 +1,8 @@
 #!/bin/bash
 
+HERE=$(cd "$(dirname "$0")" && pwd)
+cd "$HERE"
+
 echo "========================================="
 echo "PHILOSOPHERS EVALUATION TESTS"
 echo "========================================="
@@ -11,6 +14,22 @@ echo "Expected: Philosopher should not eat and should die"
 echo
 echo "---"
 echo
+
+echo "Running timing tests (if available)..."
+if [ -f ./run_time_tests.sh ]; then
+    bash ./run_time_tests.sh || echo "Timing tests returned non-zero"
+else
+    echo "run_time_tests.sh not found; skipping timing tests"
+fi
+echo
+echo "Running memory leak test (requires valgrind)..."
+if command -v valgrind >/dev/null 2>&1; then
+    bash ./leak_test.sh || echo "Leak test failed (see output above)"
+else
+    echo "valgrind not found; skipping leak test"
+fi
+echo
+echo "---"
 
 echo "Test 2: ./philo 5 800 200 200"
 echo "Expected: No one should die (running for 10 seconds)"
