@@ -19,9 +19,6 @@ static void	take_forks(t_philo *philo)
 		pthread_mutex_lock(philo->right_fork);
 		print_status(philo, "has taken a fork");
 	}
-	pthread_mutex_lock(&philo->data->meal_lock);
-	philo->last_meal_time = get_time();
-	pthread_mutex_unlock(&philo->data->meal_lock);
 }
 
 static void	drop_forks(t_philo *philo)
@@ -35,6 +32,9 @@ static void	drop_forks(t_philo *philo)
 void	philo_eat(t_philo *philo)
 {
 	take_forks(philo);
+	pthread_mutex_lock(&philo->data->meal_lock);
+	philo->last_meal_time = get_time();
+	pthread_mutex_unlock(&philo->data->meal_lock);
 	print_status(philo, "is eating");
 	pthread_mutex_lock(&philo->data->meal_lock);
 	philo->meals_eaten++;
