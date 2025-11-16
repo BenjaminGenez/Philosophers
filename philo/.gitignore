@@ -1,0 +1,26 @@
+Test directory
+.tests/
+
+# Compiled object files (anywhere in the project)
+*.o
+
+# Compiled executables
+philo/philo
+
+
+# Static libraries
+*.a
+
+
+# Debug files
+*.dSYM/
+
+# Editor/IDE files
+.vscode/
+.idea/
+*~
+.*.swp
+
+# Test logs
+*.log
+/tmp/
